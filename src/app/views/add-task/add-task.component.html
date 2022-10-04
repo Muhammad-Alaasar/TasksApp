@@ -1,0 +1,52 @@
+<form class="container" [formGroup]="addTaskForm" (ngSubmit)="addTaskImage(addTaskForm.value)">
+    <div class="mb-3">
+      <label for="email" class="form-label">Task Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        formControlName="title"
+      />
+      <div
+        class="text-danger py-2"
+        *ngIf="addTaskForm.controls.title.invalid && addTaskForm.controls.title.touched"
+      >
+        <div *ngIf="addTaskForm.controls.title.errors?.['required']">
+          Title is required
+        </div>
+        <div *ngIf="addTaskForm.controls.title.errors?.['minlength']">
+          Title minlength is required {{addTaskForm.controls.title.errors?.['minlength'].requiredLength}},
+          You have entered {{addTaskForm.controls.title.errors?.['minlength'].actualLength}}
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        formControlName="description"
+      />
+      <div
+        class="text-danger py-2"
+        *ngIf="addTaskForm.controls.description.invalid && addTaskForm.controls.description.touched"
+      >
+        <div *ngIf="addTaskForm.controls.description.errors?.['required']">
+          Description is required
+        </div>
+        <div *ngIf="addTaskForm.controls.description.errors?.['minlength']">
+          Description minlength is {{addTaskForm.controls.description.errors?.['minlength'].requiredLength}},
+          You have entered {{addTaskForm.controls.description.errors?.['minlength'].actualLength}}
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="completed" formControlName="completed">
+        <label class="form-check-label" for="completed">Completed</label>
+      </div>
+      <input type="file" formControlName="image" accept="image/*" (change)="handleUpload($event)">
+      <!-- <div class="text-danger py-2" *ngIf="invalidLogin">Please recheck you email and password</div> -->
+    <button type="submit" class="btn btn-primary" [disabled]="addTaskForm.invalid">Submit</button>
+  </form>
+  

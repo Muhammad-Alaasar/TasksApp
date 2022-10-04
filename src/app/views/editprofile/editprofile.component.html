@@ -1,0 +1,28 @@
+<form class="container" #editName="ngForm" (ngSubmit)="editNameFn(editName.value)">
+    <div class="mb-3">
+      <label for="name" class="form-label">User Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        ngModel
+        #name="ngModel"
+        name="name"
+        required
+        [(ngModel)]="user.name"
+        minlength="3"
+      />
+      <div class="text-danger py-2" *ngIf="name.invalid && name.touched">
+        <div *ngIf="name.errors?.['required']">User name is required</div>
+        <div *ngIf="name.errors?.['minlength']">
+          User name minlength is {{name.errors?.['minlength'].requiredLength}},
+          You have entered {{name.errors?.['minlength'].actualLength}}
+        </div>
+      </div>
+    </div>
+    <input type="file" name="image" id="image" ngModel (change)="handleUpload($event)" accept="image/*">
+    <button type="submit" class="btn btn-primary" [disabled]="editName.invalid">
+      Submit
+    </button>
+  </form>
+  

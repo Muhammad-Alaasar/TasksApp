@@ -1,0 +1,86 @@
+<form class="container" #signup="ngForm" (ngSubmit)="onSubmit(signup.value)">
+  <div class="mb-3">
+    <label for="name" class="form-label">User Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      ngModel
+      #name="ngModel"
+      name="name"
+      required
+      minlength="3"
+    />
+    <div class="text-danger py-2" *ngIf="name.invalid && name.touched">
+      <div *ngIf="name.errors?.['required']">User name is required</div>
+      <div *ngIf="name.errors?.['minlength']">
+        User name minlength is {{name.errors?.['minlength'].requiredLength}},
+        You have entered {{name.errors?.['minlength'].actualLength}}
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      ngModel
+      #email="ngModel"
+      name="email"
+      required
+      email
+      (change)="changeEmail()"
+    />
+    <div class="text-danger py-2" *ngIf="email.invalid && email.touched">
+      <div *ngIf="email.errors?.['required']">User email is required</div>
+      <div *ngIf="email.errors?.['email']">You must enter an email</div>
+    </div>
+    <div class="text-danger" *ngIf="invalidEmail">Email address already using</div>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      ngModel
+      #password="ngModel"
+      name="password"
+      required
+      minlength="8"
+    />
+    <div class="text-danger py-2" *ngIf="password.invalid && password.touched">
+      <div *ngIf="password.errors?.['required']">User password is required</div>
+      <div *ngIf="password.errors?.['minlength']">
+        User password minlength is
+        {{password.errors?.['minlength'].requiredLength}}, You have entered
+        {{password.errors?.['minlength'].actualLength}}
+      </div>
+    </div>
+    <div class="text-danger" *ngIf="invalidPassword">{{invalidPassword}}</div>
+  </div>
+  <div class="mb-3">
+    <label for="age" class="form-label">Age</label>
+    <input
+      type="number"
+      class="form-control"
+      id="age"
+      ngModel
+      #age="ngModel"
+      name="age"
+      [(ngModel)]="user.age"
+    />
+    <div class="text-danger" *ngIf="invalidAge">{{invalidAge}}</div>
+    <!-- <div class="text-danger py-2" *ngIf="age.invalid && age.touched">
+      <div *ngIf="age.errors?.['required']">User age is required</div>
+    </div> -->
+  </div>
+  <!-- <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div> -->
+  <button type="submit" class="btn btn-primary" [disabled]="signup.invalid">
+    Submit
+  </button>
+</form>

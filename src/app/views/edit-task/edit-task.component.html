@@ -1,0 +1,70 @@
+<form
+  class="container"
+  #editTask="ngForm"
+  (ngSubmit)="editTaskFn(editTask.value)"
+>
+  <div class="mb-3">
+    <label for="title" class="form-label">Task Title</label>
+    <input
+      type="text"
+      class="form-control"
+      id="title"
+      ngModel
+      #title="ngModel"
+      name="title"
+      required
+      [(ngModel)]="task.title"
+      minlength="3"
+    />
+    <div class="text-danger py-2" *ngIf="title.invalid && title.touched">
+      <div *ngIf="title.errors?.['required']">User title is required</div>
+      <div *ngIf="title.errors?.['minlength']">
+        User title minlength is {{title.errors?.['minlength'].requiredLength}},
+        You have entered {{title.errors?.['minlength'].actualLength}}
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <input
+      type="text"
+      class="form-control"
+      id="description"
+      ngModel
+      #description="ngModel"
+      name="description"
+      required
+      [(ngModel)]="task.description"
+      minlength="6"
+    />
+    <div
+      class="text-danger py-2"
+      *ngIf="description.invalid && description.touched"
+    >
+      <div *ngIf="description.errors?.['required']">
+        User description is required
+      </div>
+      <div *ngIf="description.errors?.['minlength']">
+        User description minlength is
+        {{description.errors?.['minlength'].requiredLength}}, You have entered
+        {{description.errors?.['minlength'].actualLength}}
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 form-check">
+    <input
+      type="checkbox"
+      class="form-check-input"
+      id="completed"
+      name="completed"
+      ngModel
+      #completed="ngModel"
+      [(ngModel)]="task.completed"
+    />
+    <label class="form-check-label" for="completed">Completed</label>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="editTask.invalid">
+    Submit
+  </button>
+</form>

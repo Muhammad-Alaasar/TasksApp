@@ -1,0 +1,22 @@
+<table class="table container">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Delete</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks; let i = index">
+      <td><img src="data:image/png;base64,{{task.image}}" width="50" alt=""></td>
+      <td>{{ task.title }}</td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.completed }}</td>
+      <td><button class="btn btn-danger" (click)="deleteTask(task._id, i)">Delete</button></td>
+      <td><a routerLink="/task/{{task._id}}"><button class="btn btn-primary">Edit</button></a></td>
+    </tr>
+  </tbody>
+</table>
